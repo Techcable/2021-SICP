@@ -53,3 +53,25 @@ I guess the author is trying to hint at the
 advantage of "normal order"/lazy evaluated languages.
 However, I'm still skeptical it is worth the complexity
 (despite not seriously working with it much) :p
+
+## Exercise 1.6
+Alyssa P. Hacker doesn’t see why `if` needs to be provided as a special form. “Why can’t I just define it as an ordinary procedure in terms of `cond`?” she asks. Alyssa’s friend Eva Lu Ator claims this can indeed be done, and she defines a new version of `if`:
+```scheme
+(define (new-if predicate then-clause else-clause)
+    (cond (predicate then-clause)
+    (else else-clause)))
+```
+
+Delighted, Alyssa uses new-if to rewrite the square-root program:
+```scheme
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x) x)))
+```
+What happens when Alyssa attempts to use this to compute square roots? Explain. 
+
+### Answer
+Since Lisp uses applicative order, and `new-if` is a regular function (not a "special form") both the 'then-clause' and the 'else-clause' of the if statement will be evaluated unconditionally.
+
+This will trigger an infinite recursion. Thank's to Lisp's Tail Call Optimization, this is equivalent to an infinite loop.
