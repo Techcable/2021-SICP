@@ -144,3 +144,34 @@ Lets check:
 `9`
 
 The tree (and number of deferred calls) doesn't grow and remains constant regardless of the input. Therefore this second procedure is iterative.
+
+## Exercise 1.10
+Here is a definition of the "Ackerman function:"
+```scheme
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y)
+        ((= y 1) 2)
+        (else (A (- x 1)
+                (A x (- y 1)))))))
+```
+Evaluating the following:
+1. `(A 1 10)`
+`(A 0 (A 1 9))`
+`(A 0 (A 0 (A 1 8)))`
+
+`(A 0 (A 0 (A 0 (A 1 7))))`
+
+`(A 0 (A 0 (A 0 (A 0 (A 1 5)))))`
+.......
+Ends up computing 2 ** 10
+
+2. `(A 3 4)`
+`(A 2 (A 3 3))`
+`(A 2 (A 2 (A 3 3)))`
+`(A 2 (A 2 (A 2 (A 3 2))))`
+`(A 2 (A 2 (A 2 (A 2 (A 3 1)))))`
+`(A 2 (A 2 (A 2 (A 2 2))))`
+For future reference:
+`(A 2 y)`
+TODO!
