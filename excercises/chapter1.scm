@@ -28,7 +28,7 @@
 
 
 (define (sqrt-iter guess x)
-  (if (good-enough? guess x)
+  (if (good-enough? square guess x)
       guess
       (sqrt-iter (improve guess x) x)))
 
@@ -43,3 +43,28 @@
 ;; Little utility program to run a certian number of iterations
 (define (sqrt-n guess x n) (if (= n 0) guess
     (sqrt-n (improve guess x) x (- n 1))))
+
+;; Exercise 1.8
+;;
+;; Implement a cbrt procedure using
+;; the fact that a guess `y` can be improved:
+;; (x/y^2+2y)/3
+;;
+;; I wanted to generalize this to arbitrary
+;; roots *SOOO* bad, but I decided to wait
+(define (cube x) (* x x x))
+
+(define (good-enough-cbrt? guess x)
+    (< (/ (abs (- x (cube guess))) x)  0.001))
+
+
+(define (cbrt-iter guess x)
+  (if (good-enough-cbrt? guess x)
+      guess
+      (cbrt-iter (improve-cbrt guess x) x)))
+
+(define (improve-cbrt guess x) (/
+  (+ (/ x (square guess)) (* 2 guess))
+  3))
+
+(define (cbrt x) (cbrt-iter 1 x))
