@@ -104,3 +104,43 @@ or intermediate variables, because it would require
 running what is essentially a hypothetical iteration of each loop.
 
 Although I believe this would work, I find it extremely inelegant.
+
+## Exercise 1.9
+```scheme
+(define (+ a b)
+  (if (= a 0) 
+      b 
+      (inc (+ (dec a) b))))
+```
+For `(+ 4 5)`, this reduces to:
+`(inc (+ (3) 5))`
+`(inc (inc (+ (2) 5))`
+`(inc (inc (inc (+ (1) 5)))`
+`(inc (inc (inc (inc (+ (0) 5)))))`
+`(inc (inc (inc (inc 5)))`
+`(inc (inc (inc 6)))`
+`(inc (inc 7))`
+`(inc 8)`
+`9`
+This is recursive, the amount of state/memory it requires increases with the input. In particular the number of deferred *calls* is proportional to the input.
+
+This makes sense, because the function doesn't call itself as the final instruction. It isn't a *tail* call.
+
+For the second definition,
+```scheme
+(define (+ a b)
+  (if (= a 0)
+      b
+      (+ (dec a) (inc b))))
+```
+The final call *is* a tail call, so I expect this to be iterative (not recursive). The procedure calls itself as its final action.
+
+Lets check:
+`(+ 4 5)`
+`(+ 3 6)`
+`(+ 2 7)`
+`(+ 1 8)`
+`(+ 0 9)`
+`9`
+
+The tree (and number of deferred calls) doesn't grow and remains constant regardless of the input. Therefore this second procedure is iterative.
