@@ -74,4 +74,33 @@ What happens when Alyssa attempts to use this to compute square roots? Explain.
 ### Answer
 Since Lisp uses applicative order, and `new-if` is a regular function (not a "special form") both the 'then-clause' and the 'else-clause' of the if statement will be evaluated unconditionally.
 
-This will trigger an infinite recursion. Thank's to Lisp's Tail Call Optimization, this is equivalent to an infinite loop.
+This will trigger an infinite recursion. Thanks to Lisp's Tail Call Optimization, this is equivalent to an infinite loop.
+
+## Exercise 1.7
+Here is an example that proves that our current definition of `good-enough?` is very poor.
+Five iterations of newtons method (starting with one) to compute `sqrt(1e-7)` gives `0.03125106561775382` on my machine.
+
+Then `(good-enough? .03 1e-7)` gives true, even though `square .03` gives `9e-4`, which is off by three orders of magnitude from the target `1e-7`.
+
+A better version would use *relative* differences.
+Instead of checking if `abs(actual - target) < fixed_diff`,
+check if `abs(actual - target) / target < fixed_relative_diff`.
+This will implicitly adjust to different orders of magnitude, both large and small.
+
+More explicitly, define
+```scheme
+(define (good-enough? guess x)
+    (< (/ (abs (- x (square guess))) x) 0.001))
+```
+
+This modified version gives `.00316` as the answer to `(sqrt 1e-7)`.
+
+### Note on suggestion on running to a fixpoint
+NOTE: The book suggested essentially running the `sqrt-iter` function until the difference between iterations settles down to a very small fraction of the guess.
+
+While I believe this would work,
+it seems very inelegant without using let-bindings
+or intermediate variables, because it would require
+running what is essentially a hypothetical iteration of each loop.
+
+Although I believe this would work, I find it extremely inelegant.

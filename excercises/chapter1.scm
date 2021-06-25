@@ -18,3 +18,28 @@
 (define (square x) (* x x))
 
 (define (excercise13 a b c) (+ (square (car (max2of3 a b c))) (square (cdr (max2of3 a b c)))))
+
+;; Newton's Method. Chapter 1.1.7
+;;
+;; NOTE: Modified "good-enough?" is solution
+;; to Excercise 1.7
+(define (good-enough? guess x)
+    (< (/ (abs (- x (square guess))) x)  0.001))
+
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+
+(define (average x y) 
+  (/ (+ x y) 2))
+
+(define (improve guess x) (average guess (/ x guess)))
+
+;; Improve sqrt (via newtons method) until it is "good-enough?"
+(define (sqrt x) (sqrt-iter 1 x))
+
+;; Little utility program to run a certian number of iterations
+(define (sqrt-n guess x n) (if (= n 0) guess
+    (sqrt-n (improve guess x) x (- n 1))))
