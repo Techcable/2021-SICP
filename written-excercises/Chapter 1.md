@@ -197,3 +197,8 @@ This grows **super** fast:
 `(A 2 (A 2 (A 2 (exp 2 2))))`
 `(A 2 (A 2 (4^4^4^4)))`
 Soooo, this looks like it'll probably take forever ;)
+That's what happens when you make mistakes copying down
+
+1. `f(n)=2n`
+2. `g(n)=2^n`
+3. `h(n)` is to `2^n` as `2^n` is to `2n`. In standard mathematical notation, this would be written with the n as a superscript to the left of 2, instead of the right of 2 like it is with exponents (I remember my Calc II teacher explaining this to me once)`
