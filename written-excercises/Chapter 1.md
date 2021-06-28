@@ -166,12 +166,34 @@ Evaluating the following:
 .......
 Ends up computing 2 ** 10
 
-2. `(A 3 4)`
+2. `(A 3 4)` (EDIT: I made a mistake copying this down. Ignore it)
 `(A 2 (A 3 3))`
 `(A 2 (A 2 (A 3 3)))`
 `(A 2 (A 2 (A 2 (A 3 2))))`
 `(A 2 (A 2 (A 2 (A 2 (A 3 1)))))`
 `(A 2 (A 2 (A 2 (A 2 2))))`
+
 For future reference:
-`(A 2 y)`
-TODO!
+`(A 1 y)` is `(exp 2 y)`
+`(A 2 y)` reduces (assuming y > 2)
+`(A 1 (A 2 (- y 1))`
+`(exp 2 (A 2 (- y 1))`
+`(exp 2 (A 1 (A 2 (- y 2)))`
+`(exp 2 (exp 2 (A 2 (- y 2)))`
+
+So `(A 2 x)` is to `(exp 2 x)` as `(exp 2 x)` is to `(* 2 x)`.
+However, when `y=1`, we seed the sequence with 2 instead of `2**0=1`.
+
+For example,
+`(A 2 2)`
+`(exp 2 2)`
+Or, in standard notation, `2^2`
+`(A 2 3)`
+`(exp (exp 2 2))`
+In standard notation: `2^2^2`
+
+This grows **super** fast:
+`(A 2 (A 2 (A 2 (A 2 2))))
+`(A 2 (A 2 (A 2 (exp 2 2))))`
+`(A 2 (A 2 (4^4^4^4)))`
+Soooo, this looks like it'll probably take forever ;)
