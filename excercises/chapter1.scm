@@ -68,3 +68,14 @@
   3))
 
 (define (cbrt x) (cbrt-iter 1 x))
+
+;; Excercise 1.11
+(define (f n) (if (< n 3) n
+             (+ (f (- n 1)) (* 2 (f (- n 2))) (* 3 (f (- n 3))))))
+
+(define (f-iter n)
+  (define (iter a b c level) (if (= level n) a
+    (iter (+ a (* 2 b) (* 3 c)) a b (+ level 1)))) ; compute next level
+  (if (< n 3) n
+      (iter 2 1 0 2)))
+  
