@@ -78,4 +78,19 @@
     (iter (+ a (* 2 b) (* 3 c)) a b (+ level 1)))) ; compute next level
   (if (< n 3) n
       (iter 2 1 0 2)))
-  
+
+;; Excercise 1.12
+(define (pascal-triangle-rec row column)
+  (define row-size (+ row 1))
+  (cond
+    ((< column 0) 0) ; leftmost bound
+    ((>= column row-size) 0) ; rightmost bound
+    ((= row 0) 1) ; first row all ones
+    ((= row 1) 1) ; second row all ones
+    (else (+ (pascal-triangle-rec (- row 1) (- column 1)) (pascal-triangle-rec (- row 1) column)))))
+
+(define (range start end) (if (< start end) (cons start (range (+ start 1) end)) nil))
+
+(define (build-pascal-triangle row)
+  (define row-size (+ row 1))
+  (map (lambda (column) (pascal-triangle-rec row column)) (range 0 row-size)))
