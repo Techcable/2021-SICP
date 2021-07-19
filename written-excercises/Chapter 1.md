@@ -193,7 +193,7 @@ Or, in standard notation, `2^2`
 In standard notation: `2^2^2`
 
 This grows **super** fast:
-`(A 2 (A 2 (A 2 (A 2 2))))
+`(A 2 (A 2 (A 2 (A 2 2))))`
 `(A 2 (A 2 (A 2 (exp 2 2))))`
 `(A 2 (A 2 (4^4^4^4)))`
 Soooo, this looks like it'll probably take forever ;)
@@ -201,4 +201,10 @@ That's what happens when you make mistakes copying down
 
 1. `f(n)=2n`
 2. `g(n)=2^n`
-3. `h(n)` is to `2^n` as `2^n` is to `2n`. In standard mathematical notation, this would be written with the n as a superscript to the left of 2, instead of the right of 2 like it is with exponents (I remember my Calc II teacher explaining this to me once)`
+3. `h(n)` is to `2^n` as `2^n` is to `2n`. In standard mathematical notation, this would be written with the n as a superscript to the left of 2, instead of the right of 2 like it is with exponents (I remember my Calc II teacher explaining this to me once)
+
+## Exercise 1.13
+I can't for the life of me figure this proof out (that $Fib(n)=(\phi^n-\psi^n)/\sqrt{5}$. I've spent over an hour trying to prove it. However, I did manage to prove that the expression $(\phi^n-\psi^n)/\sqrt{5}$ expands to the following infinite series:
+
+$$\sum_{k=0}^{\lfloor(n-1)\div 2\rfloor}{({n\choose{2k+1}}\sqrt{5}^{2k+1})\div(\sqrt{5}\cdot2^{n-1})}$$
+
