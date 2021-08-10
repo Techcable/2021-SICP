@@ -1,4 +1,3 @@
-#lang sicp
 (define excercise12 (/ (+ 5 4 (- 2 (- 3 (+ 6 4/5)))) (* 3 (-  6 2) (- 2 7))))
 (display "Excercise 1.2: ")
 (display excercise12)
@@ -28,7 +27,7 @@
 
 
 (define (sqrt-iter guess x)
-  (if (good-enough? square guess x)
+  (if (good-enough? guess x)
       guess
       (sqrt-iter (improve guess x) x)))
 
@@ -89,7 +88,7 @@
     ((= row 1) 1) ; second row all ones
     (else (+ (pascal-triangle-rec (- row 1) (- column 1)) (pascal-triangle-rec (- row 1) column)))))
 
-(define (range start end) (if (< start end) (cons start (range (+ start 1) end)) nil))
+(define (range start end) (if (< start end) (cons start (range (+ start 1) end)) '()))
 
 (define (build-pascal-triangle row)
   (define row-size (+ row 1))
