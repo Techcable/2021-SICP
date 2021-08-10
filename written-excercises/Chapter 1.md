@@ -208,3 +208,6 @@ I can't for the life of me figure this proof out (that $Fib(n)=(\phi^n-\psi^n)/\
 
 $$\sum_{k=0}^{\lfloor(n-1)\div 2\rfloor}{({n\choose{2k+1}}\sqrt{5}^{2k+1})\div(\sqrt{5}\cdot2^{n-1})}$$
 
+## Exercise 1.15
+a. The procedure is applied 5 times. $\ceil{\log_3{\frac{12.5}{.1}}}=5$
+b. The procedure is logarithmic.
