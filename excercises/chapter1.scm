@@ -99,26 +99,22 @@
 ;; "Design an procedure that evolves an iterative expontetation
 ;;  process that uses successive squaring and uses a lograithmic number of steps"
 ;;
-;; This becomes trivial if you think of rewriting the equivalent Python
-;; code
-;; def fast-expt(base, power):
-;;     if power == 0:
-;;         return 1
-;;     acc = base
-;;     current_pow = 1
-;;     while currnet_pow < power:
-;;         if isodd(current_power):
-;;             current_pow += 1
-;;             acc *= acc
-;;         else:
-;;             current_pow *= 2
-;;             acc *= base
-;;     return acc
+;; NOTE: I struggled with this for a while. Trying to write the algorithim in python first did *not* help. It only obscured the underlying problem.
+;; The book was right, the key is the identity b^n = (b^2)^(n/2)
+;; I was focusing on the state-transformation of the accumulator,
+;; and trying to keep the base the same.
+;; In fact, the key transformation which is the squring of the base 
+;; which enables halving the current-pow.
+;;
+;; The accumulator is really just a side-show, needed only for the 'odd?' case.
+;; The "hint" in the book obscures this fact, talking way more about
+;; the accumulator and causing me to overthink it....
 (define (fast-expt base power)
-  (define (is-odd num) (= 1 (remainder num 2)))
-  (define (expt-iter acc current-pow) ; product = a * b^n
-    (cond ((= current-pow power) acc)
-    ((is-odd current-pow) (expt-iter (* acc base) (+ current-pow 1)))
-    (else (expt-iter (* acc acc) (* current-pow 2)))))
-  (expt-iter base 1))
+  (define (odd? num) (= 1 (remainder num 2)))
+  (define (square x) (* x x))
+  (define (expt-iter acc base current-pow) ; product = a * b^n
+    (cond ((= current-pow 0) acc)
+    ((odd? current-pow) (expt-iter (* acc base) base (- current-pow 1)))
+    (else (expt-iter acc (square base) (/ current-pow 2)))))
+  (expt-iter 1 base power))
 
