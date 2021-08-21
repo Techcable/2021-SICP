@@ -93,3 +93,32 @@
 (define (build-pascal-triangle row)
   (define row-size (+ row 1))
   (map (lambda (column) (pascal-triangle-rec row column)) (range 0 row-size)))
+
+;; Excercise 1.16
+;;
+;; "Design an procedure that evolves an iterative expontetation
+;;  process that uses successive squaring and uses a lograithmic number of steps"
+;;
+;; This becomes trivial if you think of rewriting the equivalent Python
+;; code
+;; def fast-expt(base, power):
+;;     if power == 0:
+;;         return 1
+;;     acc = base
+;;     current_pow = 1
+;;     while currnet_pow < power:
+;;         if isodd(current_power):
+;;             current_pow += 1
+;;             acc *= acc
+;;         else:
+;;             current_pow *= 2
+;;             acc *= base
+;;     return acc
+(define (fast-expt base power)
+  (define (is-odd num) (= 1 (remainder num 2)))
+  (define (expt-iter acc current-pow) ; product = a * b^n
+    (cond ((= current-pow power) acc)
+    ((is-odd current-pow) (expt-iter (* acc base) (+ current-pow 1)))
+    (else (expt-iter (* acc acc) (* current-pow 2)))))
+  (expt-iter base 1))
+
