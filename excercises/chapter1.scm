@@ -118,3 +118,22 @@
     (else (expt-iter acc (square base) (/ current-pow 2)))))
   (expt-iter 1 base power))
 
+(define (dbg n x)
+  (display n)
+  (display ": ")
+  (display x)
+  (display "\n")
+  x)
+
+;; Exercise 1.17 & 1.18
+;;;
+;; I jumped directly to the iterative process (skipping the recursive version)
+(define (fast-* a b)
+  (define (odd? num) (= 1 (remainder num 2)))
+  (define (double x) (+ x x))
+  (define (halve x) (/ x 2))
+  (define (*-iter acc a b) ; product = acc + a * b
+    (cond ((= b 0) acc)
+          ((odd? b) (*-iter (+ acc a) a (- b 1)))
+          (else (*-iter acc (double a) (halve b)))))
+  (*-iter 0 a b))
